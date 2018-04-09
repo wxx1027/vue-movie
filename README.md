@@ -1,68 +1,15 @@
-# vue2.0 豆瓣电影WebApp
-
-## 项目简介
-
-使用vue2.0仿豆瓣电影app，根据豆瓣电影api对功能作了适当修改
-
-api来源自豆瓣官方api，详情请戳[豆瓣电影api](https://developers.douban.com/wiki/?title=movie_v2)
-
->  如果对您有帮助，可以点右上角 "Star" 支持一下 谢谢！ ^_^
-
-## 线上体验
-
-#### PC访问
-
-[豆瓣电影webapp](http://59.110.140.119:8080)
-
-打开浏览器进入开发者模式，选择移动端视口
-
-chrome浏览器下的iphone5/6/6 plus体验效果更佳
-
-#### 移动端访问
-
-打开手机浏览器扫描下方二维码或访问上面的地址，推荐全屏模式下体验
-
-![image](https://github.com/buptsky/vue-douban-movie/raw/master/screenshots/qrcode.png)
-
-## 项目运行
-
-clone项目源码
-```
-git clone https://github.com/buptsky/vue-douban-movie.git
-```
 安装依赖
 ```
-cd vue-douban-movie
+cd vue-movie
 npm install
 ```
 运行
 ```
 npm run dev
 ```
-打开浏览器进入localhost:8000，在开发者工具的移动端模式下查看效果
-
-#### 运行环境
-node 6+ npm 4+
-
-
-## 部分效果演示
-### 上映电影信息和电影详情
-
-![image](https://github.com/buptsky/vue-douban-movie/raw/master/screenshots/movie-show.gif)
-![image](https://github.com/buptsky/vue-douban-movie/raw/master/screenshots/detail.gif)
-
-### 排行和影人
-
-![image](https://github.com/buptsky/vue-douban-movie/raw/master/screenshots/rank.gif)
-![image](https://github.com/buptsky/vue-douban-movie/raw/master/screenshots/celebrity.gif)
-
-### 搜索和收藏
-
-![image](https://github.com/buptsky/vue-douban-movie/raw/master/screenshots/search.gif)
-![image](https://github.com/buptsky/vue-douban-movie/raw/master/screenshots/collect.gif)
+打开浏览器进入localhost:8080，在开发者工具的移动端模式下查看效果
 
 ## 项目描述
-### 技术栈
 - vue2.0 + vue-router + vuex：vue全家桶
 - axios：用于ajax请求
 - vue-lazyload：用于图片懒加载
@@ -77,7 +24,6 @@ node 6+ npm 4+
 
 webpack + webpack-dev-server + http-proxy-middleware进行本地开发环境http请求转发，实现跨域请求
 
-线上使用express的http-proxy-middleware实现请求转发
 
 ### 功能实现
 #### 上映电影部分
@@ -105,7 +51,6 @@ webpack + webpack-dev-server + http-proxy-middleware进行本地开发环境http
 
 ### 关于浏览器跨域
 #### 开发环境
-项目通过vue脚手架vue-cli进行配置，可在'config/index'目录下进行如下配置
 ```
 proxyTable: {
       '/v2': {
@@ -117,41 +62,7 @@ proxyTable: {
       }
     }
 ```
-参数里中的changeOrigin，接收一个布尔值，如果设置为true,那么本地会虚拟一个服务端接收你的请求并代你发送该请求，这样就不会有跨域问题了
-vue-cli的这个设置来自于其使用的插件http-proxy-middleware
-#### 生产环境
-服务器端配置
-```
-const express = require('express');
-const proxy = require('http-proxy-middleware');
 
-const app = express();
-app.use('/static', express.static(`${__dirname}/static`));
-app.use('/v2', proxy({
-  target: 'http://api.douban.com',
-  changeOrigin: true,
-}));
-
-app.get('/*', (req, res) => {
-  res.sendFile(`${__dirname}/index.html`);
-});
-app.listen(8000);
-```
-本质上都是通过使用'http-proxy-middleware'中间件实现代理
-### 关于移动端滚动库better-scroll
-better-scroll 是一个移动端滚动的解决方案，它是基于 iscroll 的重写，它和 iscroll 的主要区别在这里。better-scroll 也很强大，不仅可以做普通的滚动列表，还可以做轮播图、picker 等等。
-
-从之前[黄轶](https://github.com/ustbhuangyi)老师的[高仿elem外卖app](https://github.com/ustbhuangyi/vue-sell)开始接触过这个滚动库，感觉体验感很好，用起来也比较顺手，所以在后来的项目联系中就一直在使用。
-推荐大家也尝试一下:)
-
-滚动的原理时父容器有固定的高度。父容器的第一个子元素，它的高度会随着内容的大小而撑高。当内容的高度不超过父容器的高度，是不能滚动的，而它一旦超过了父容器的高度，我们就可以滚动内容区了，这就是better-scroll 的滚动原理。
-
-可以通过黄轶老师的这篇文章具体了解下:[当 better-scroll 遇见 Vue](https://juejin.im/post/59300b2e2f301e006bcdd91c)
-
-better-scroll的github地址戳:[better-scroll](https://github.com/ustbhuangyi/better-scroll/)
-
-> 如果您不想在项目中使用better-scroll，也可以将相关代码进行替换，如取消一些为了实现scroll组件使用的css的绝对/固定定位，页面的滚动的数据获取采用原生方式获取或使用其他库等，重构成本不会很大。
-## 项目布局
 ```
 ├─build                       // webpack配置文件
 ├─config                      // 项目开发环境配置相关代码
